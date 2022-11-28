@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:stock_management/screen/customerPage/CustomerDetailsPage.dart';
 import '../../modal/Customer.dart';
 import '../../providers/CustomersProvider.dart';
-import '../../service/customer-service.dart' as CustomerService;
 
 class CustomersList extends StatefulWidget {
   const CustomersList({Key? key}) : super(key: key);
@@ -23,7 +22,6 @@ class _CustomersListState extends State<CustomersList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: MediaQuery.of(context).size.height * 0.60,
         child: FutureBuilder<List<Customer>>(
             future: widget.getCustomers(context),
             builder: (BuildContext context, AsyncSnapshot<List<Customer>> snapshot) {
@@ -31,7 +29,10 @@ class _CustomersListState extends State<CustomersList> {
                 return Consumer<CustomerProvider>(
                   builder: (BuildContext context, provider, Widget? child) {
                     return ListView.builder(
-                    padding: EdgeInsets.only(left: 20, right: 20),
+                      physics: const ScrollPhysics(),
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      padding: EdgeInsets.only(left: 20, right: 20),
                       itemCount: provider.getListFoundedCustomers().length,
                       itemBuilder: (BuildContext context, int index) {
                         Customer customer = provider.getListFoundedCustomers()![index];

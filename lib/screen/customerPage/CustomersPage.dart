@@ -22,14 +22,13 @@ class _CustomersPageState extends State<CustomersPage> {
     return Scaffold(
         floatingActionButton: AddButton(),
         body: SingleChildScrollView(
-          child: Container(
-            child: Column(
+          child: Column(
               children: [
-                SearchInput(),
-                CustomersList(),
+                  SearchInput(),
+                  CustomersList(),
               ],
-            ),
           ),
-        ));
+        )
+    );
   }
 }

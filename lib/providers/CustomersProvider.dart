@@ -76,7 +76,6 @@ class CustomerProvider extends ChangeNotifier {
     }
   }
 
-
   void changeSearchExpression(String newExpression){
     searchExpression = newExpression;
     notifyListeners();
