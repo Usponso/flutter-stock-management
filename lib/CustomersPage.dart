@@ -16,13 +16,14 @@ class _CustomersPageState extends State<CustomersPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         floatingActionButton: AddButton(),
-        body: Container(
+        body: SingleChildScrollView(
           child: Column(
-            children: [
-              SearchInput(),
-              CustomersList(),
-            ],
+              children: [
+                  SearchInput(),
+                  CustomersList(),
+              ],
           ),
-        ));
+        )
+    );
   }
 }
