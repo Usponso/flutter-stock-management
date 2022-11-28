@@ -34,7 +34,8 @@ class _DetailedBillState extends State<DetailedBill> {
             onPressed: () => Navigator.pop(context),
           ),
         ),
-        body: Padding(
+        body: SingleChildScrollView(
+            child: Padding(
           padding: EdgeInsets.all(20),
           child: Column(
             children: [
@@ -65,6 +66,6 @@ class _DetailedBillState extends State<DetailedBill> {
                       )))
             ],
           ),
-        ));
+        )));
   }
 }

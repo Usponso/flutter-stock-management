@@ -76,7 +76,6 @@ class CustomerProvider extends ChangeNotifier {
     }
   }
 
-
   void changeSearchExpression(String newExpression){
     searchExpression = newExpression;
     notifyListeners();
@@ -89,6 +88,10 @@ class CustomerProvider extends ChangeNotifier {
         foundedCustomers.add(customer);
       }
     });
+    print(foundedCustomers);
     return foundedCustomers;
   }
+
+
 }
+

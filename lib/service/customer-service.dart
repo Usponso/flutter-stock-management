@@ -32,7 +32,6 @@ Future<List<CustomerBill>> getBillsByCustomer(int customerId) async{
 }
 
 Future<List<CustomerTransaction>> getAllTransactionsByBillAndCustomer(int customerId, int billId) async {
-  print(customerId);
   try {
     var response = await Dio().get('$API_URL/customers/$customerId/bills/$billId/transactions');
     List<CustomerTransaction> transactionsList =[];

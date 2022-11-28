@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:stock_management/CustomersPage.dart';
+import 'package:stock_management/screen/customerPage/CustomersPage.dart';
 import 'package:stock_management/providers/CustomersProvider.dart';
+import 'package:stock_management/providers/SearchCustomersProvider.dart';
 import 'package:stock_management/providers/devicesProvider.dart';
 import 'package:stock_management/screen/productPage/ProductPage.dart';
 import 'package:stock_management/screen/widgets/DetailedBill.dart';
@@ -11,7 +12,8 @@ void main() {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => CustomerProvider(),),
-      ChangeNotifierProvider(create: (context) => DevicesProvider(),)
+      ChangeNotifierProvider(create: (context) => DevicesProvider(),),
+      /*ChangeNotifierProvider(create: (context) => SearchCustomerProvider(),),*/
     ],
     child: const MyApp(),
   ));
@@ -44,7 +46,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
+  static List<Widget> _widgetOptions = <Widget>[
     ProductPage(),
     CustomersPage(),
   ];

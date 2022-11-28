@@ -27,7 +27,7 @@ class _AllTransactionsCardState extends State<AllTransactionsCard> {
 
     return Container(
       margin: EdgeInsets.only(top: 20),
-      width: 343,
+      width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
           border: Border.all(color: Colors.grey),
           color: Colors.grey[100],
@@ -38,6 +38,7 @@ class _AllTransactionsCardState extends State<AllTransactionsCard> {
             children: [
               Container(
                   height: 40,
+                  width: MediaQuery.of(context).size.width,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -60,64 +61,67 @@ class _AllTransactionsCardState extends State<AllTransactionsCard> {
                       ),
                     ],
                   )),
-              Row(
-                children: [
-                  Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          height: 250,
-                          width: 301,
-                          child: FutureBuilder<List<CustomerTransaction>>(
-                              future: customerTransactions,
-                              builder: (BuildContext context,
-                                  AsyncSnapshot<List<CustomerTransaction>>
-                                      snapshot) {
-                                if (snapshot.hasData) {
-                                  return ListView.builder(
-                                      itemCount: snapshot.data?.length,
-                                      itemBuilder: (context, index) {
-                                        CustomerTransaction transaction =
-                                            snapshot.data![index];
-                                        return Container(
-                                            height: 25,
-                                            child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Container(
-                                                      child: Text(
-                                                          "${transaction.productName}"),
-                                                      width: 100),
-                                                  Spacer(),
-                                                  Container(
-                                                      child: Text(
-                                                          "${transaction.quantity}"),
-                                                      width: 80,
-                                                      alignment:
-                                                          Alignment.center),
-                                                  Container(
-                                                      child: Text(
-                                                          "${transaction.price}"),
-                                                      width: 60,
-                                                      alignment:
-                                                          Alignment.center),
-                                                ]));
-                                      });
-                                } else {
-                                  return CircularProgressIndicator();
-                                }
-                              }),
-                        ),
-                        Container(
-                          width: 301,
-                          child: Text("Total : ${widget.totalBill} €",
-                              textAlign: TextAlign.right,
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                        )
-                      ])
-                ],
+              Container(
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                        /*mainAxisAlignment: MainAxisAlignment.spaceBetween,*/
+                        children: [
+                          SizedBox(
+                            height: 250,
+                            width: MediaQuery.of(context).size.width,
+                            child: FutureBuilder<List<CustomerTransaction>>(
+                                future: customerTransactions,
+                                builder: (BuildContext context,
+                                    AsyncSnapshot<List<CustomerTransaction>>
+                                        snapshot) {
+                                  if (snapshot.hasData) {
+                                    return ListView.builder(
+                                        itemCount: snapshot.data?.length,
+                                        itemBuilder: (context, index) {
+                                          CustomerTransaction transaction =
+                                              snapshot.data![index];
+                                          return Container(
+                                              height: 25,
+                                              child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Container(
+                                                        child: Text(
+                                                            "${transaction.productName}"),
+                                                        width: MediaQuery.of(context).size.width * 0.2
+                                                    ),
+                                                    Spacer(),
+                                                    Container(
+                                                        child: Text(
+                                                            "${transaction.quantity}"),
+                                                        width: MediaQuery.of(context).size.width * 0.2,
+                                                        alignment:
+                                                            Alignment.center),
+                                                    Container(
+                                                        child: Text(
+                                                            "${transaction.price}"),
+                                                        width: MediaQuery.of(context).size.width * 0.2,
+                                                        alignment:
+                                                            Alignment.center),
+                                                  ]));
+                                        });
+                                  } else {
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  }
+                                }),
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            child: Text("Total : ${widget.totalBill} €",
+                                textAlign: TextAlign.right,
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                          )
+                        ])
+
               )
             ],
           )),

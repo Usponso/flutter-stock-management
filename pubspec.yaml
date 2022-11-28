@@ -42,6 +42,7 @@ dependencies:
   intl: ^0.17.0
   flutter_barcode_scanner: ^2.0.0
   flutter_expandable_fab: ^1.6.0
+  searchfield: ^0.7.2
 
 dev_dependencies:
   flutter_test:

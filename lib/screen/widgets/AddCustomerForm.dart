@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:stock_management/CustomersPage.dart';
+import 'package:stock_management/screen/customerPage/CustomersPage.dart';
 import 'package:stock_management/main.dart';
 import 'package:stock_management/providers/CustomersProvider.dart';
 
@@ -15,7 +15,7 @@ class AddCustomerForm extends StatefulWidget {
 class _AddCustomerFormState extends State<AddCustomerForm> {
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
+    return SingleChildScrollView(child: AlertDialog(
       backgroundColor: Colors.deepPurple[50],
       icon: Icon(Icons.person, color: Colors.deepPurple[400]),
       insetPadding: EdgeInsets.all(20),
@@ -109,7 +109,7 @@ class _AddCustomerFormState extends State<AddCustomerForm> {
                   color: Colors.deepPurple[400], fontWeight: FontWeight.bold),
             )),
       ],
-    );
+    ));
   }
 }
 
