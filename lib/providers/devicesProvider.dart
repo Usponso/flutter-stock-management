@@ -52,9 +52,8 @@ class DevicesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<List<Device>> getDeviceByScan(String scannedId) async {
-    int id = int.parse(scannedId.substring(3));
-    var response = await Dio().get('$API_URL/devices/$id');
+  Future<List<Device>> getDeviceByScan(String scannedSerialNumber) async {
+    var response = await Dio().get('$API_URL/devices/$scannedSerialNumber');
     List<Device> device = List<Device>.from(response.data.map((device) => Device.fromJson(device)));
     return device;
   }
