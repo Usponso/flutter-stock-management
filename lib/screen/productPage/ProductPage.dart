@@ -32,7 +32,7 @@ class ProductPage extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => SearchResultPage(search: true, productId: barcodeScanRes)));
+                  builder: (context) => SearchResultPage(scan: true, productIdOrSerialNumber: barcodeScanRes)));
         }
       } on PlatformException {
         barcodeScanRes = 'Failed to get platform version.';
@@ -102,7 +102,7 @@ class ProductPage extends StatelessWidget {
                             ),
                             child: ListTile(
                               onTap: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => SearchResultPage(search: false, productId: provider.devices[index].id.toString())));
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => SearchResultPage(scan: false, productIdOrSerialNumber: provider.devices[index].id.toString())));
                               },
                               leading:
                                   Icon(Icons.devices, color: Colors.deepPurple[400]),

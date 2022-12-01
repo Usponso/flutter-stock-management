@@ -6,20 +6,21 @@ import '../../providers/devicesProvider.dart';
 
 class SearchResultPage extends StatelessWidget {
   const SearchResultPage(
-      {Key? key, required this.productId, required this.search})
+      {Key? key, required this.productIdOrSerialNumber, required this.scan})
       : super(key: key);
 
-  final String productId;
-  final bool search;
+  final String productIdOrSerialNumber;
+  final bool scan;
 
   @override
   Widget build(BuildContext context) {
-    Future<List<Device>> scannedDevice =
+    Future<Device> scannedOrClickedDevice =
         Provider.of<DevicesProvider>(context, listen: false)
-            .getDeviceByScan(productId);
+            .getDeviceByScanOrClick(scan, productIdOrSerialNumber);
+
     return Scaffold(
         appBar: AppBar(
-          title: search
+          title: scan
               ? Text('Résultat de la recherche')
               : Text('Détails du produit'),
           backgroundColor: Colors.deepPurple[400],
@@ -28,23 +29,23 @@ class SearchResultPage extends StatelessWidget {
             onPressed: () => Navigator.pop(context),
           ),
         ),
-        body: FutureBuilder<List<Device>>(
-            future: scannedDevice,
+        body: FutureBuilder<Device>(
+            future: scannedOrClickedDevice,
             builder:
-                (BuildContext context, AsyncSnapshot<List<Device>> snapshot) {
+                (BuildContext context, AsyncSnapshot<Device> snapshot) {
               if (snapshot.hasData) {
-                if (snapshot.data?.length != 0) {
+                if (snapshot.data != null) {
                   return ListView.builder(
                       padding: EdgeInsets.only(left: 20, right: 20),
                       itemCount: 1,
                       itemBuilder: (context, index) {
-                        Device device = snapshot.data![index];
+                        Device device = snapshot.data!;
                         return ProductCard(device: device);
                       });
                 } else {
                   return Center(
                       child: Text(
-                          "Pas de produit correspondant à votre recherche : ID ${productId}"));
+                          "Pas de produit correspondant à votre recherche : ID ${productIdOrSerialNumber}"));
                 }
               } else {
                 return const Center(

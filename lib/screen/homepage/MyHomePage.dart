@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:stock_management/screen/connectionPage/SignInScreen.dart';
 
 import '../customerPage/CustomersPage.dart';
+import '../orderPage/OrderPage.dart';
 import '../productPage/ProductPage.dart';
 import '../../utils/authentication.dart';
 
@@ -25,6 +26,7 @@ class _MyHomePageState extends State<MyHomePage> {
     List<Widget> _widgetOptions = <Widget>[
       ProductPage(user: widget.user),
       CustomersPage(),
+      OrderPage()
     ];
 
     void _onItemTapped(int index) {
@@ -96,6 +98,10 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.phone),
             label: "Répertoire",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.payment),
+            label: "Commande",
           ),
         ],
         currentIndex: _selectedIndex,

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:stock_management/providers/TransactionProvider.dart';
 import 'package:stock_management/screen/connectionPage/SignInScreen.dart';
 import 'package:stock_management/providers/CustomersProvider.dart';
 import 'package:stock_management/providers/devicesProvider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +18,7 @@ void main() async {
     providers: [
       ChangeNotifierProvider(create: (context) => CustomerProvider(),),
       ChangeNotifierProvider(create: (context) => DevicesProvider(),),
-      /*ChangeNotifierProvider(create: (context) => SearchCustomerProvider(),),*/
+      ChangeNotifierProvider(create: (context) => TransactionProvider(),),
     ],
     child: const MyApp(),
   ));
