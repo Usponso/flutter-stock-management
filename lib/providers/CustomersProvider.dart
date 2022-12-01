@@ -63,7 +63,6 @@ class CustomerProvider extends ChangeNotifier {
       var response = await Dio().get('$API_URL/customers');
       /*List<Customer> customersList =[];*/
       /*List<Customer> customersList = response.data.map((customer) => Customer.fromJson(customer)).toList() as List<Customer>;*/
-      if (_customers.length == 0)
         response.data
             .forEach((customer) => _customers.add(Customer.fromJson(customer)));
       notifyListeners();
