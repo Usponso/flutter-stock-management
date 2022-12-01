@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:stock_management/providers/TransactionProvider.dart';
 import 'package:stock_management/screen/customerPage/CustomersPage.dart';
 import 'package:stock_management/providers/CustomersProvider.dart';
-import 'package:stock_management/providers/SearchCustomersProvider.dart';
 import 'package:stock_management/providers/devicesProvider.dart';
+import 'package:stock_management/screen/orderPage/OrderPage.dart';
 import 'package:stock_management/screen/productPage/ProductPage.dart';
 import 'package:stock_management/screen/widgets/DetailedBill.dart';
 
@@ -13,7 +14,7 @@ void main() {
     providers: [
       ChangeNotifierProvider(create: (context) => CustomerProvider(),),
       ChangeNotifierProvider(create: (context) => DevicesProvider(),),
-      /*ChangeNotifierProvider(create: (context) => SearchCustomerProvider(),),*/
+      ChangeNotifierProvider(create: (context) => TransactionProvider(),),
     ],
     child: const MyApp(),
   ));
@@ -49,6 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
   static List<Widget> _widgetOptions = <Widget>[
     ProductPage(),
     CustomersPage(),
+    OrderPage()
   ];
 
   void _onItemTapped(int index) {
@@ -76,6 +78,10 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.phone),
             label: "Répertoire",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.payment),
+            label: "Commande",
           ),
         ],
         currentIndex: _selectedIndex,

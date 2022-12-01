@@ -17,4 +17,5 @@ class CustomerTransaction {
     'price' : price
   };
 
+
 }

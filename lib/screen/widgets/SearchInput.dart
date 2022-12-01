@@ -5,7 +5,6 @@ import 'package:stock_management/service/customer-service.dart';
 
 import '../../modal/Customer.dart';
 import '../../providers/CustomersProvider.dart';
-import '../../providers/SearchCustomersProvider.dart';
 
 class SearchInput extends StatefulWidget {
   const SearchInput({Key? key}) : super(key: key);

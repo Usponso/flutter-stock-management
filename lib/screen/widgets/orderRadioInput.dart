@@ -1,67 +1,65 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-void main() => runApp(const MyApp());
+import '../../providers/TransactionProvider.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+enum ActionType { buy, sale }
 
-  static const String _title = 'Flutter Code Sample';
+class OrderRadioInput extends StatefulWidget {
+  const OrderRadioInput({super.key});
+
+  @override
+  State<OrderRadioInput> createState() => _OrderRadioInput();
+}
+
+class _OrderRadioInput extends State<OrderRadioInput> {
+  ActionType? _type = ActionType.sale;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: _title,
-      home: Scaffold(
-        appBar: AppBar(title: const Text(_title)),
-        body: const Center(
-          child: MyStatefulWidget(),
-        ),
-      ),
-    );
-  }
-}
-
-enum SingingCharacter { lafayette, jefferson }
-
-class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({super.key});
-
-  @override
-  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
-}
-
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  SingingCharacter? _character = SingingCharacter.lafayette;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        ListTile(
-          title: const Text('Lafayette'),
-          leading: Radio<SingingCharacter>(
-            value: SingingCharacter.lafayette,
-            groupValue: _character,
-            onChanged: (SingingCharacter? value) {
-              setState(() {
-                _character = value;
-              });
-            },
+    return Consumer<TransactionProvider>(builder: (context, provider, child) {
+      return Row(
+        children: [
+          Expanded(
+            child: Container(
+              width: double.infinity,
+              child: ListTile(
+                title: const Text('Vente'),
+                leading: Radio<ActionType>(
+                  value: ActionType.sale,
+                  groupValue: _type,
+                  onChanged: (ActionType? value) {
+                    setState(() {
+                      _type = value;
+                      Provider.of<TransactionProvider>(context, listen: false)
+                          .setActionType(false);
+                    });
+                  },
+                ),
+              ),
+            ),
           ),
-        ),
-        ListTile(
-          title: const Text('Thomas Jefferson'),
-          leading: Radio<SingingCharacter>(
-            value: SingingCharacter.jefferson,
-            groupValue: _character,
-            onChanged: (SingingCharacter? value) {
-              setState(() {
-                _character = value;
-              });
-            },
+          Expanded(
+            child: Container(
+              width: double.infinity,
+              child: ListTile(
+                title: const Text('Achat'),
+                leading: Radio<ActionType>(
+                  value: ActionType.buy,
+                  groupValue: _type,
+                  onChanged: (ActionType? value) {
+                    setState(() {
+                      _type = value;
+                      Provider.of<TransactionProvider>(context, listen: false)
+                          .setActionType(true);
+                    });
+                  },
+                ),
+              ),
+            ),
           ),
-        ),
-      ],
-    );
+        ],
+      );
+    });
   }
 }
