@@ -167,28 +167,3 @@ class _OrderPageState extends State<OrderPage> {
     ));
   }
 }
-
-/*GFSearchBar(
-searchList: provider.customers,
-searchQueryBuilder: (query, List<Customer?> list) {
-return provider.customers
-    .where((customer) => customer.companyName
-    .toLowerCase()
-    .contains(query.toLowerCase()))
-    .toList();
-},
-overlaySearchListItemBuilder: (Customer? customer) {
-return Container(
-padding: const EdgeInsets.all(8),
-child: Text(
-customer!.companyName,
-style: const TextStyle(fontSize: 18),
-),
-);
-},
-onItemSelected: (Customer? customer) {
-setState(() {
-print('$customer');
-});
-},
-);*/
