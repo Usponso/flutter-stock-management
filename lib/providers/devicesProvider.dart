@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:stock_management/constants.dart';
 import '../modal/Device.dart';
@@ -13,12 +14,30 @@ class DevicesProvider extends ChangeNotifier {
   UnmodifiableListView<Device> get devices => UnmodifiableListView(_devices);
 
   void postDevice(String name, String serialNumber, String price,
-      String stockQuantity) async {
+      String stockQuantity, String picture, String path) async {
+
+    String url = 'https://upload.wikimedia.org/wikipedia/commons/f/fc/No_picture_available.png'; //default picture
+
+    // Create a storage reference from our app
+    final storageRef = FirebaseStorage.instance.ref();
+    final devicesRef = storageRef.child('devices/images/$picture');
+
+    File file = File(path);
+
+    try {
+      await devicesRef.putFile(file);
+      url = await devicesRef.getDownloadURL();
+    } catch(e){
+      print(e);
+    }
+
     Device device = Device(
-        name: name,
-        serialNumber: serialNumber,
-        price: double.parse(price),
-        stockQuantity: int.parse(stockQuantity));
+      name: name,
+      serialNumber: serialNumber,
+      price: double.parse(price),
+      stockQuantity: int.parse(stockQuantity),
+      picture: url,
+    );
 
     var id = await Dio().post('$API_URL/devices',
         options: Options(headers: {

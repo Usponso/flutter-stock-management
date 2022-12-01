@@ -1,9 +1,11 @@
+import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:stock_management/providers/devicesProvider.dart';
 
-class CustomDialog extends StatelessWidget {
+class CustomDialog extends StatefulWidget {
   CustomDialog(
       {Key? key,
       this.name = '',
@@ -13,6 +15,15 @@ class CustomDialog extends StatelessWidget {
       : super(key: key);
 
   String name, serialNumber, price, stockQuantity;
+
+  @override
+  State<CustomDialog> createState() => _CustomDialogState();
+}
+
+class _CustomDialogState extends State<CustomDialog> {
+  String picture = "";
+  String path = "";
+  List<File> files = [];
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +43,41 @@ class CustomDialog extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              picture.isNotEmpty
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.file(
+                          //to show image, you type like this.
+                          File(path),
+                          fit: BoxFit.cover,
+                          width: MediaQuery.of(context).size.width,
+                          height: 300,
+                        ),
+                      ),
+                    )
+                  : Text(
+                      "Aucune image",
+                      style: TextStyle(fontSize: 20),
+                    ),
+              // getFilesWidgets(files),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextButton(
+                    onPressed: uploadPicture,
+                    child: Text(
+                      "Ajouter une image",
+                      style: TextStyle(
+                          color: Colors.deepPurple[400], fontWeight: FontWeight.bold),
+                    ),
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
                   onChanged: (newText) {
-                    name = newText;
+                    widget.name = newText;
                   },
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -48,7 +89,7 @@ class CustomDialog extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
                   onChanged: (newText) {
-                    serialNumber = newText;
+                    widget.serialNumber = newText;
                   },
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -64,7 +105,7 @@ class CustomDialog extends StatelessWidget {
                     FilteringTextInputFormatter.deny(new RegExp('[A-Za-z]'))
                   ],
                   onChanged: (newText) {
-                    price = newText;
+                    widget.price = newText;
                   },
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -80,7 +121,7 @@ class CustomDialog extends StatelessWidget {
                     FilteringTextInputFormatter.digitsOnly
                   ],
                   onChanged: (newText) {
-                    stockQuantity = newText;
+                    widget.stockQuantity = newText;
                   },
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -103,7 +144,7 @@ class CustomDialog extends StatelessWidget {
           TextButton(
               onPressed: () {
                 Provider.of<DevicesProvider>(context, listen: false)
-                    .postDevice(name, serialNumber, price, stockQuantity);
+                    .postDevice(widget.name, widget.serialNumber, widget.price, widget.stockQuantity, picture, path);
                 Navigator.pop(context);
               },
               child: Text(
@@ -115,4 +156,45 @@ class CustomDialog extends StatelessWidget {
       ),
     );
   }
+
+  Future<void> uploadPicture() async{
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+      // allowMultiple: true
+    );
+    if (result != null) {
+      setState(() {
+        // files = result.paths.map((path) => File(path!)).toList();
+        picture = result.files.single.name!;
+        path = result.files.single.path!;
+      });
+    } else {
+      // User canceled the picker
+      setState(() {
+        picture = '';
+        path = '';
+      });
+    }
+  }
+
+  // Widget getFilesWidgets(List<File> files)
+  // {
+  //   List<Widget> list = [];
+  //   for(var i = 0; i < files.length; i++){
+  //     list.add(new Padding(
+  //       padding: const EdgeInsets.symmetric(horizontal: 20),
+  //       child: ClipRRect(
+  //         borderRadius: BorderRadius.circular(8),
+  //         child: Image.file(
+  //           //to show image, you type like this.
+  //           files[i],
+  //           fit: BoxFit.cover,
+  //           width: MediaQuery.of(context).size.width,
+  //           height: 300,
+  //         ),
+  //       ),
+  //     ));
+  //   }
+  //   return new Column(children: list);
+  // }
 }

@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:stock_management/screen/customerPage/CustomersPage.dart';
-import 'package:stock_management/main.dart';
 import 'package:stock_management/providers/CustomersProvider.dart';
 
 class AddCustomerForm extends StatefulWidget {
