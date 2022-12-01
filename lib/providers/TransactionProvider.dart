@@ -20,8 +20,6 @@ class TransactionProvider extends ChangeNotifier {
     quantity = transaction.quantity;
     buying = transaction.buying;
     deviceId = transaction.deviceId;
-    /*customerId = transaction.customerId;
-    billId = transaction.billId;*/
     deviceName = transaction.deviceName;
     devicePrice = transaction.devicePrice;
     total += transaction.devicePrice;
