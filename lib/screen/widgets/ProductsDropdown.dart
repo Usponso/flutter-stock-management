@@ -55,7 +55,6 @@ class _ProductsDropdownState extends State<ProductsDropdown> {
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            /*Text(style: TextStyle(fontSize: 12),"Produits"),*/
                             Container(
                                 width: 170,
                                 child: DropDownTextField(
