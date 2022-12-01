@@ -1,20 +1,9 @@
-import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stock_management/providers/TransactionProvider.dart';
-import 'package:stock_management/screen/widgets/AddButton.dart';
 import 'package:stock_management/screen/widgets/CustomersDropdown.dart';
-import 'package:stock_management/screen/widgets/CustomersList.dart';
 import 'package:stock_management/screen/widgets/ProductsDropdown.dart';
-import 'package:stock_management/screen/widgets/SearchInput.dart';
 import 'package:stock_management/screen/widgets/orderRadioInput.dart';
-import 'package:getwidget/getwidget.dart';
-import 'package:stock_management/service/customer-service.dart';
-
-import '../../modal/Customer.dart';
-import '../../modal/CustomerTransaction.dart';
-import '../../providers/CustomersProvider.dart';
-import '../../providers/devicesProvider.dart';
 
 class OrderPage extends StatefulWidget {
   const OrderPage({Key? key}) : super(key: key);

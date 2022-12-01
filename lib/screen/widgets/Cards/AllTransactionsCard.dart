@@ -37,6 +37,11 @@ class _AllTransactionsCardState extends State<AllTransactionsCard> {
           child: Column(
             children: [
               Container(
+                  decoration: const BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(width: 1, color: Colors.grey),
+                      )
+                    ),
                   height: 40,
                   width: MediaQuery.of(context).size.width,
                   child: Row(
@@ -45,10 +50,11 @@ class _AllTransactionsCardState extends State<AllTransactionsCard> {
                       Container(
                         child: Text("Produit",
                             style: TextStyle(fontWeight: FontWeight.bold)),
+                        width: MediaQuery.of(context).size.width * 0.4,
                       ),
                       Spacer(),
                       Container(
-                        width: 80,
+                        width: MediaQuery.of(context).size.width * 0.2,
                         child: Text("Quantité",
                             style: TextStyle(fontWeight: FontWeight.bold)),
                         alignment: Alignment.center,
@@ -56,13 +62,14 @@ class _AllTransactionsCardState extends State<AllTransactionsCard> {
                       Container(
                         child: Text("Prix",
                             style: TextStyle(fontWeight: FontWeight.bold)),
-                        width: 60,
+                        width: MediaQuery.of(context).size.width * 0.2,
                         alignment: Alignment.center,
                       ),
                     ],
                   )),
               Container(
                 width: MediaQuery.of(context).size.width,
+                margin: EdgeInsets.only(top: 5),
                 child: Column(
                         /*mainAxisAlignment: MainAxisAlignment.spaceBetween,*/
                         children: [
@@ -90,7 +97,7 @@ class _AllTransactionsCardState extends State<AllTransactionsCard> {
                                                     Container(
                                                         child: Text(
                                                             "${transaction.productName}"),
-                                                        width: MediaQuery.of(context).size.width * 0.2
+                                                        width: MediaQuery.of(context).size.width * 0.4,
                                                     ),
                                                     Spacer(),
                                                     Container(
@@ -115,10 +122,19 @@ class _AllTransactionsCardState extends State<AllTransactionsCard> {
                                 }),
                           ),
                           Container(
+                            margin: EdgeInsets.only(top: 5),
+                            decoration: BoxDecoration(
+                              border: Border(
+                                top: BorderSide(width: 1, color: Colors.grey),
+                              )
+                            ),
                             width: MediaQuery.of(context).size.width,
-                            child: Text("Total : ${widget.totalBill} €",
-                                textAlign: TextAlign.right,
-                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Text("Total : ${widget.totalBill} €",
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(fontWeight: FontWeight.bold)),
+                            ),
                           )
                         ])
 

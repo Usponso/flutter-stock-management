@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:searchfield/searchfield.dart';
 import 'package:stock_management/service/customer-service.dart';
-
 import '../../modal/Customer.dart';
 import '../../providers/CustomersProvider.dart';
 

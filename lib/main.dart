@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stock_management/providers/TransactionProvider.dart';
-import 'package:stock_management/screen/customerPage/CustomersPage.dart';
+import 'package:stock_management/screen/connectionPage/SignInScreen.dart';
 import 'package:stock_management/providers/CustomersProvider.dart';
 import 'package:stock_management/providers/devicesProvider.dart';
-import 'package:stock_management/screen/orderPage/OrderPage.dart';
-import 'package:stock_management/screen/productPage/ProductPage.dart';
-import 'package:stock_management/screen/widgets/DetailedBill.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   /*runApp(const MyApp());*/
   runApp(MultiProvider(
     providers: [
@@ -31,63 +35,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple,
       ),
-      home: const MyHomePage(title: 'Gestion de stock'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _selectedIndex = 0;
-  static List<Widget> _widgetOptions = <Widget>[
-    ProductPage(),
-    CustomersPage(),
-    OrderPage()
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Center(child: Text(widget.title)),
-        backgroundColor: Colors.deepPurple[400],
-      ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.devices),
-            label: "Produits",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.phone),
-            label: "Répertoire",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.payment),
-            label: "Commande",
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.deepPurple[400],
-        onTap: _onItemTapped,
-      ),
+      home: SignInScreen(),//const MyHomePage(title: 'Gestion de stock'),
     );
   }
 }

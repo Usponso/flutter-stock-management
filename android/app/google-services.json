@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "160197640355",
+    "project_id": "stock-management-de0b8",
+    "storage_bucket": "stock-management-de0b8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:160197640355:android:c7932d260f02abb143bf16",
+        "android_client_info": {
+          "package_name": "com.example.stock_management"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "160197640355-4ho67acopbq4l19n6lbfdeshou741vsa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.stock_management",
+            "certificate_hash": "2df40a7c021b2faaa7c2bdcdbae0e822a167e8a0"
+          }
+        },
+        {
+          "client_id": "160197640355-jh695m95a8au16neqaqmrvm266qnt5m8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlkcr0FSgaY2YgKpOQ9N98ZGRNTpF9kEI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "160197640355-jh695m95a8au16neqaqmrvm266qnt5m8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "160197640355-39lqdqn8u0nldm2h5odu2u0rqhodu4gv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.stockManagement"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
