@@ -43,7 +43,7 @@ class _CustomersDropdownState extends State<CustomersDropdown> {
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(style: TextStyle(fontSize: 18), "Client"),
+                        Text(style: TextStyle(fontSize: 18), "Client :"),
                         Container(
                             width: 200,
                             child: DropDownTextField(
