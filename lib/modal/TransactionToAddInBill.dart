@@ -6,8 +6,9 @@ class TransactionToAddInBill {
   late int billId;
   final String deviceName;
   final double devicePrice;
+  bool isDisplayQuantitySelectorInput = false;
 
-  TransactionToAddInBill({required this.quantity, required this.buying, required this.deviceId, required this.deviceName, required this.devicePrice});
+  TransactionToAddInBill(this.isDisplayQuantitySelectorInput, {required this.quantity, required this.buying, required this.deviceId, required this.deviceName, required this.devicePrice});
 
   TransactionToAddInBill.fromJson(Map<String, dynamic> json)
       :
