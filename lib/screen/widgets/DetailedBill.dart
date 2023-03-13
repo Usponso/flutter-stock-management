@@ -36,7 +36,7 @@ class _DetailedBillState extends State<DetailedBill> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('${widget.companyName} - Facture n°${widget.idBill}'),
+          title: Text('${widget.companyName} - Commande n°${widget.idBill}'),
           backgroundColor: Colors.deepPurple[400],
           leading: IconButton(
             icon: Icon(Icons.arrow_back, color: Colors.white),

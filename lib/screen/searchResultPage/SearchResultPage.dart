@@ -15,9 +15,8 @@ class SearchResultPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future<Device> scannedOrClickedDevice =
-        Provider.of<DevicesProvider>(context, listen: false)
+        Provider.of<DevicesProvider>(context, listen: true)
             .getDeviceByScanOrClick(scan, productIdOrSerialNumber);
-
     return Scaffold(
         appBar: AppBar(
           title: scan
@@ -33,7 +32,7 @@ class SearchResultPage extends StatelessWidget {
             future: scannedOrClickedDevice,
             builder:
                 (BuildContext context, AsyncSnapshot<Device> snapshot) {
-              if (snapshot.hasData) {
+              if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.data != null) {
                   return ListView.builder(
                       padding: EdgeInsets.only(left: 20, right: 20),
@@ -45,13 +44,15 @@ class SearchResultPage extends StatelessWidget {
                 } else {
                   return Center(
                       child: Text(
-                          "Pas de produit correspondant à votre recherche : ID ${productIdOrSerialNumber}"));
+                          "Pas de produit correspondant à votre recherche"));
                 }
               } else {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
-            }));
+            }
+        )
+    );
   }
 }

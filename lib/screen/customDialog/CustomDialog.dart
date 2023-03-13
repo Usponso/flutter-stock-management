@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:provider/provider.dart';
 import 'package:stock_management/providers/devicesProvider.dart';
 
@@ -27,6 +29,20 @@ class _CustomDialogState extends State<CustomDialog> {
 
   @override
   Widget build(BuildContext context) {
+    Future<void> scanBarcodeNormal() async {
+      String barcodeScanRes;
+      // Platform messages may fail, so we use a try/catch PlatformException.
+      try {
+        barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+            '#ff0000', 'Annuler', true, ScanMode.BARCODE);
+        Provider.of<DevicesProvider>(context, listen: false).barcodeScanned = barcodeScanRes;
+        if (barcodeScanRes != '-1') {
+         }
+      } on PlatformException {
+        barcodeScanRes = 'Failed to get platform version.';
+      }
+    }
+
     return SingleChildScrollView(
       child: AlertDialog(
         backgroundColor: Colors.deepPurple[50],
@@ -59,17 +75,26 @@ class _CustomDialogState extends State<CustomDialog> {
                     )
                   : Text(
                       "Aucune image",
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(fontSize: 15),
                     ),
               // getFilesWidgets(files),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: TextButton(
+                child: ElevatedButton(
                     onPressed: uploadPicture,
-                    child: Text(
-                      "Ajouter une image",
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.deepPurple[400],
+                      minimumSize: const Size.fromHeight(40),
+                    ),
+                    child: const Text.rich(
+
+                      TextSpan(
+                          children: [
+                            WidgetSpan(child: Icon(Icons.add), alignment: PlaceholderAlignment.middle),
+                            TextSpan(text: '  Ajouter une photo')
+                          ]),
                       style: TextStyle(
-                          color: Colors.deepPurple[400], fontWeight: FontWeight.bold),
+                          color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                 ),
               ),
@@ -87,15 +112,21 @@ class _CustomDialogState extends State<CustomDialog> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  onChanged: (newText) {
-                    widget.serialNumber = newText;
-                  },
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "Numéro de série",
-                  ),
-                ),
+                child: Row(
+                  children: [
+                Expanded(
+                child:TextField(
+                      onChanged: (newText) {
+                        widget.serialNumber = newText;
+                      },
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "Numéro de série",
+                      ),
+                    )),
+                    IconButton(onPressed: ()=>{}, icon: Icon(CupertinoIcons.barcode_viewfinder))
+                  ],
+                )
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -159,7 +190,7 @@ class _CustomDialogState extends State<CustomDialog> {
 
   Future<void> uploadPicture() async{
     FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.image,
+      type: FileType.media,
       // allowMultiple: true
     );
     if (result != null) {

@@ -77,14 +77,20 @@ class _ProductsDropdownState extends State<ProductsDropdown> {
 
                                   },
                                 )),
-                            IconButton(
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4),
                                 color: Colors.deepPurple[400],
-                                onPressed: () {
-                                  TransactionToAddInBill transaction = TransactionToAddInBill(quantity: 1, buying: false, deviceId: scannedOrClickedDevice.id, deviceName: scannedOrClickedDevice.name, devicePrice: scannedOrClickedDevice.price);
-                                  Provider.of<TransactionProvider>(context, listen: false).setData(transaction);
-                                  Provider.of<TransactionProvider>(context, listen: false).addTransactionInBill(transaction);
-                                },
-                                icon: Icon(Icons.add))
+                              ),
+                              child: IconButton(
+                                  color: Colors.white,
+                                  onPressed: () {
+                                    TransactionToAddInBill transaction = TransactionToAddInBill(quantity: 1, buying: false, deviceId: scannedOrClickedDevice.id, deviceName: scannedOrClickedDevice.name, devicePrice: scannedOrClickedDevice.price);
+                                    Provider.of<TransactionProvider>(context, listen: false).setData(transaction);
+                                    Provider.of<TransactionProvider>(context, listen: false).addTransactionInBill(transaction);
+                                  },
+                                  icon: Icon(Icons.add)),
+                            )
                           ]));
                 });
           } else {

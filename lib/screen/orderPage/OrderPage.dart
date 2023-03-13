@@ -47,10 +47,19 @@ class _OrderPageState extends State<OrderPage> {
                                 child: Text("Produit",
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold)),
+                                width: MediaQuery.of(
+                                    context)
+                                    .size
+                                    .width *
+                                    0.3,
                               ),
                               Spacer(),
                               Container(
-                                width: 80,
+                                width: MediaQuery.of(
+                                    context)
+                                    .size
+                                    .width *
+                                    0.2,
                                 child: Text("Quantité",
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold)),
@@ -60,7 +69,11 @@ class _OrderPageState extends State<OrderPage> {
                                 child: Text("Prix",
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold)),
-                                width: 60,
+                                width: MediaQuery.of(
+                                    context)
+                                    .size
+                                    .width *
+                                    0.2,
                                 alignment: Alignment.center,
                               ),
                             ],
@@ -92,7 +105,7 @@ class _OrderPageState extends State<OrderPage> {
                                                                     context)
                                                                 .size
                                                                 .width *
-                                                            0.2),
+                                                            0.3),
                                                     Spacer(),
                                                     Container(
                                                         child: Text(
@@ -136,11 +149,11 @@ class _OrderPageState extends State<OrderPage> {
             ),
           ),
           Container(
-              margin: EdgeInsets.only(top: 20),
-              width: 300,
+              margin: EdgeInsets.only(top: 20, left: 30, right: 30),
+              width: MediaQuery.of(context).size.width,
               child: ElevatedButton.icon(
-                  icon: Icon(Icons.save),
-                  label: Text("Enregistrer"),
+                  icon: Icon(Icons.check),
+                  label: Text("Valider"),
                   onPressed: () async {
                     await Provider.of<TransactionProvider>(context, listen: false).postTransactions();
                   },

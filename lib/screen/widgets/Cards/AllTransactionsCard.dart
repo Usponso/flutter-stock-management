@@ -50,7 +50,7 @@ class _AllTransactionsCardState extends State<AllTransactionsCard> {
                       Container(
                         child: Text("Produit",
                             style: TextStyle(fontWeight: FontWeight.bold)),
-                        width: MediaQuery.of(context).size.width * 0.4,
+                        width: MediaQuery.of(context).size.width * 0.35,
                       ),
                       Spacer(),
                       Container(
@@ -97,7 +97,7 @@ class _AllTransactionsCardState extends State<AllTransactionsCard> {
                                                     Container(
                                                         child: Text(
                                                             "${transaction.productName}"),
-                                                        width: MediaQuery.of(context).size.width * 0.4,
+                                                        width: MediaQuery.of(context).size.width * 0.35,
                                                     ),
                                                     Spacer(),
                                                     Container(
