@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:expand_tap_area/expand_tap_area.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,14 +26,15 @@ class _OrderPageState extends State<OrderPage> {
         .of<TransactionProvider>(context, listen: false)
         .total = 0;
 
-    final TextEditingController quantityController = TextEditingController();
+    final List<TextEditingController> quantityControllers = [];
 
-    @override
-    void dispose() {
-      // Clean up the controller when the widget is disposed.
-      quantityController.dispose();
-      super.dispose();
-    }
+
+    // @override
+    // void dispose() {
+    //   // Clean up the controller when the widget is disposed.
+    //   quantityController.dispose();
+    //   super.dispose();
+    // }
 
     return Scaffold(
         body: SingleChildScrollView(
@@ -114,6 +117,7 @@ class _OrderPageState extends State<OrderPage> {
                                         itemCount: transactionProvider
                                             .allTransactions.length,
                                         itemBuilder: (context, index) {
+                                          quantityControllers.add(new TextEditingController());
                                           return Container(
                                               height: 25,
                                               child: Row(
@@ -143,12 +147,6 @@ class _OrderPageState extends State<OrderPage> {
                                                                     .allTransactions[
                                                                 index]
                                                                     .deviceId);
-
-                                                            print(
-                                                                transactionProvider
-                                                                    .allTransactions[
-                                                                index]
-                                                                    .isDisplayQuantitySelectorInput);
                                                           },
                                                           child: Container(
                                                               child: showWidget(
@@ -156,10 +154,12 @@ class _OrderPageState extends State<OrderPage> {
                                                                       .allTransactions[
                                                                   index]
                                                                       .isDisplayQuantitySelectorInput,
-                                                                  quantityController,
+                                                                  quantityControllers[index],
                                                                   transactionProvider
                                                                       .allTransactions[index]
-                                                                      .quantity),
+                                                                      .quantity,
+                                                              transactionProvider,
+                                                              index),
                                                               width: MediaQuery
                                                                   .of(
                                                                   context)
@@ -173,7 +173,7 @@ class _OrderPageState extends State<OrderPage> {
                                                             child: Text(
                                                                 "${transactionProvider
                                                                     .allTransactions[index]
-                                                                    .devicePrice}"),
+                                                                    .devicePrice*transactionProvider.allTransactions[index].quantity}"),
                                                             width: MediaQuery
                                                                 .of(
                                                                 context)
@@ -234,11 +234,15 @@ class _OrderPageState extends State<OrderPage> {
 }
 
   showWidget(bool isDisplayQuantitySelectorInput,
-      TextEditingController quantityController, int quantity) {
+      TextEditingController quantityController, int quantity, TransactionProvider transactionProvider, int index) {
     if (isDisplayQuantitySelectorInput) {
       return TextField(
-          controller:
-          quantityController);
+        controller: quantityController,
+        onChanged: (quantite) {
+          transactionProvider.allTransactions[index].quantity = int.parse(quantite);
+          transactionProvider.updateTotal();
+        },
+      );
     } else {
       return Text(
           "${quantity}");

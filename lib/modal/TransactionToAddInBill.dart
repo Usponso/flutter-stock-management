@@ -1,5 +1,5 @@
 class TransactionToAddInBill {
-  final int quantity;
+  int quantity;
   final bool buying;
   final int deviceId;
   late int customerId;

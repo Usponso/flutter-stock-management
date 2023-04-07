@@ -23,17 +23,24 @@ class TransactionProvider extends ChangeNotifier {
     deviceId = transaction.deviceId;
     deviceName = transaction.deviceName;
     devicePrice = transaction.devicePrice;
-    total += transaction.devicePrice;
+    total += transaction.devicePrice*transaction.quantity;
   }
 
   void setQuantity(int deviceId, int quantity) {
     allTransactions.forEach((transaction) => {
       if(transaction.deviceId == deviceId) {
-        print('TEST'),
         transaction.isDisplayQuantitySelectorInput = true,
         displayButtonQuantityValidator = true
       }
     });
+  }
+
+  void updateTotal() {
+    total = 0;
+    allTransactions.forEach((transaction) => {
+      total += transaction.quantity*transaction.devicePrice
+    });
+    notifyListeners();
   }
 
   void setCustomerId(int id) {
