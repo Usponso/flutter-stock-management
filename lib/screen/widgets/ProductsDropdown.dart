@@ -34,6 +34,7 @@ class _ProductsDropdownState extends State<ProductsDropdown> {
   @override
   Widget build(BuildContext context) {
 
+    var key = 0; // Key to reload the dropdown and clear the previous selection
 
     return FutureBuilder(
         future: widget.getDevices(context),
@@ -59,6 +60,7 @@ class _ProductsDropdownState extends State<ProductsDropdown> {
                                 width: 170,
                                 child: DropDownTextField(
                                   clearOption: true,
+                                  key: new Key(key.toString()),
                                   textFieldFocusNode: textFieldFocusNode,
                                   searchFocusNode: searchFocusNode,
                                   // searchAutofocus: true,
@@ -68,13 +70,12 @@ class _ProductsDropdownState extends State<ProductsDropdown> {
                                   searchKeyboardType: TextInputType.text,
                                   dropDownList: dropDownListDevices,
                                   onChanged: (productDropDownValueModel) async {
-
                                     if(productDropDownValueModel != "") {
                                       scannedOrClickedDevice =
                                       await Provider.of<DevicesProvider>(context, listen: false)
                                           .getDeviceByScanOrClick(false, productDropDownValueModel.value.toString());
+                                      key = key+1; // Refreshing the key to reload the dropdown list to clear the previous selection
                                     }
-
                                   },
                                 )),
                             Container(
@@ -85,12 +86,15 @@ class _ProductsDropdownState extends State<ProductsDropdown> {
                               child: IconButton(
                                   color: Colors.white,
                                   onPressed: () {
-                                    TransactionToAddInBill transaction = TransactionToAddInBill(quantity: 1, buying: false, deviceId: scannedOrClickedDevice.id, deviceName: scannedOrClickedDevice.name, devicePrice: scannedOrClickedDevice.price);
-                                    Provider.of<TransactionProvider>(context, listen: false).setData(transaction);
-                                    Provider.of<TransactionProvider>(context, listen: false).addTransactionInBill(transaction);
+                                    if(scannedOrClickedDevice.id != 0){
+                                      TransactionToAddInBill transaction = TransactionToAddInBill(false, quantity: 1, buying: false, deviceId: scannedOrClickedDevice.id, deviceName: scannedOrClickedDevice.name, devicePrice: scannedOrClickedDevice.price);
+                                      Provider.of<TransactionProvider>(context, listen: false).setData(transaction);
+                                      Provider.of<TransactionProvider>(context, listen: false).addTransactionInBill(transaction);
+                                    }
                                   },
                                   icon: Icon(Icons.add)),
                             )
+
                           ]));
                 });
           } else {

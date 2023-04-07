@@ -14,6 +14,22 @@ class Authentication {
 
     User? user = FirebaseAuth.instance.currentUser;
 
+
+
+    /*FirebaseAuth.instance
+        .authStateChanges()
+        .listen((User ? user) {
+      if (user == null) {
+        print('User is currently signed out!');
+      } else {
+        print('User is signed in!');
+      }
+    });*/
+
+
+    print("USER");
+    print(user);
+
     if (user != null) {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(

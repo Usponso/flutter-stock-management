@@ -15,6 +15,7 @@ class TransactionProvider extends ChangeNotifier {
   double devicePrice = 0;
   List<TransactionToAddInBill> allTransactions = [];
   double total = 0;
+  bool displayButtonQuantityValidator = false;
 
   void setData(TransactionToAddInBill transaction) {
     quantity = transaction.quantity;
@@ -22,7 +23,24 @@ class TransactionProvider extends ChangeNotifier {
     deviceId = transaction.deviceId;
     deviceName = transaction.deviceName;
     devicePrice = transaction.devicePrice;
-    total += transaction.devicePrice;
+    total += transaction.devicePrice*transaction.quantity;
+  }
+
+  void setQuantity(int deviceId, int quantity) {
+    allTransactions.forEach((transaction) => {
+      if(transaction.deviceId == deviceId) {
+        transaction.isDisplayQuantitySelectorInput = true,
+        displayButtonQuantityValidator = true
+      }
+    });
+  }
+
+  void updateTotal() {
+    total = 0;
+    allTransactions.forEach((transaction) => {
+      total += transaction.quantity*transaction.devicePrice
+    });
+    notifyListeners();
   }
 
   void setCustomerId(int id) {
@@ -45,6 +63,18 @@ class TransactionProvider extends ChangeNotifier {
 
   void addTransactionInBill(TransactionToAddInBill transaction) {
     allTransactions.add(transaction);
+    notifyListeners();
+  }
+
+  void displayQuantitySelectorInput (int deviceId) {
+    print(deviceId);
+    allTransactions.forEach((transaction) => {
+      if(transaction.deviceId == deviceId) {
+        print('TEST'),
+        transaction.isDisplayQuantitySelectorInput = true,
+        displayButtonQuantityValidator = true
+      }
+    });
     notifyListeners();
   }
 

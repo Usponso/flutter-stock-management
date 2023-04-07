@@ -28,7 +28,7 @@ class CustomerDetailsPage extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: Container(
+      body: SingleChildScrollView(
           child: Column(
         children: [
           Card(
@@ -58,6 +58,7 @@ class CustomerDetailsPage extends StatelessWidget {
                   AsyncSnapshot<List<CustomerBill>> snapshot) {
                 if (snapshot.hasData) {
                   return ListView.builder(
+                      physics: const ScrollPhysics(),
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
                       padding: EdgeInsets.only(left: 10, right: 10),
