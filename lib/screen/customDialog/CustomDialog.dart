@@ -35,9 +35,7 @@ class _CustomDialogState extends State<CustomDialog> {
       try {
         barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
             '#ff0000', 'Annuler', true, ScanMode.BARCODE);
-        Provider.of<DevicesProvider>(context, listen: false).barcodeScanned = barcodeScanRes;
-        if (barcodeScanRes != '-1') {
-         }
+        widget.serialNumber = barcodeScanRes;
       } on PlatformException {
         barcodeScanRes = 'Failed to get platform version.';
       }
@@ -119,12 +117,15 @@ class _CustomDialogState extends State<CustomDialog> {
                       onChanged: (newText) {
                         widget.serialNumber = newText;
                       },
+                      controller: TextEditingController(
+                          text: widget.serialNumber
+                      ),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: "Numéro de série",
                       ),
                     )),
-                    IconButton(onPressed: ()=>{}, icon: Icon(CupertinoIcons.barcode_viewfinder))
+                    IconButton(onPressed: ()=>scanBarcodeNormal(), icon: Icon(CupertinoIcons.barcode_viewfinder))
                   ],
                 )
               ),
@@ -207,25 +208,4 @@ class _CustomDialogState extends State<CustomDialog> {
       });
     }
   }
-
-  // Widget getFilesWidgets(List<File> files)
-  // {
-  //   List<Widget> list = [];
-  //   for(var i = 0; i < files.length; i++){
-  //     list.add(new Padding(
-  //       padding: const EdgeInsets.symmetric(horizontal: 20),
-  //       child: ClipRRect(
-  //         borderRadius: BorderRadius.circular(8),
-  //         child: Image.file(
-  //           //to show image, you type like this.
-  //           files[i],
-  //           fit: BoxFit.cover,
-  //           width: MediaQuery.of(context).size.width,
-  //           height: 300,
-  //         ),
-  //       ),
-  //     ));
-  //   }
-  //   return new Column(children: list);
-  // }
 }
