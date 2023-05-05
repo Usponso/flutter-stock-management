@@ -26,10 +26,6 @@ class Authentication {
       }
     });*/
 
-
-    print("USER");
-    print(user);
-
     if (user != null) {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
