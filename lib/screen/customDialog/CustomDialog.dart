@@ -114,11 +114,12 @@ class _CustomDialogState extends State<CustomDialog> {
                   children: [
                 Expanded(
                 child:TextField(
+                  // TODO: TRYING TO MAKE IT DYNAMIC, THE TEXTFIELD ISNT REFRESHING WHEN SCANNING, IT NEEDS TO FOCUS ANOTHER INPUT
                       onChanged: (newText) {
                         widget.serialNumber = newText;
                       },
                       controller: TextEditingController(
-                          text: widget.serialNumber
+                          text: widget.serialNumber,
                       ),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),

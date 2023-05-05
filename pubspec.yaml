@@ -54,6 +54,7 @@ dependencies:
   dropdown_textfield: ^1.0.7
   flutter_launcher_icons: ^0.11.0
   expand_tap_area: ^1.1.0
+  flutter_secure_storage: ^8.0.0
 
 flutter_icons:
   image_path_android: "assets/icon/app-logo.png"
